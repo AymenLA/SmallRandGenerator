@@ -8,5 +8,7 @@ void RunTestCase2(void);
 void RunTestCase3(void);
 void RunTestCase4(void);
 void RunTestCase5(void);
+void RunTestCase6(void);
+void RunTestCase7(void);
 
 #endif // _TEST_FILE_1_H_

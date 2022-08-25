@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <stdio.h>
 #include "SmallRandGenerator.h"
 
 /** Local defines          ***************************************************/
@@ -30,6 +31,33 @@ uint32_t Get_RandomNumber(void)
     uint32_t randomToReturn = digestedSeed;
     digestedSeed = GetNextSeed(digestedSeed);
     return randomToReturn;
+}
+
+uint32_t Get_RandomNumberFromRange(uint32_t lower, uint32_t upper)
+{
+    uint32_t randomToReturn = digestedSeed;
+    uint32_t finalRandomToReturn = digestedSeed;
+    uint32_t range = 0U;
+
+    /* not allowed cases */
+    if((upper == 0U) || (upper == lower) || (upper < lower))
+    {
+        finalRandomToReturn = 0U;
+    }
+
+    if(finalRandomToReturn != 0U)
+    {
+        range = (upper - lower) + 1U;
+        digestedSeed = GetNextSeed(digestedSeed);
+        finalRandomToReturn = (randomToReturn % (upper + 1U));
+        if(finalRandomToReturn < lower)
+        {
+            //printf("#srglib print : %u\n", finalRandomToReturn);
+            finalRandomToReturn = lower + (finalRandomToReturn % range);
+        }
+    }
+
+    return finalRandomToReturn;
 }
 
 static uint32_t GetNextSeed(uint32_t currentSeed)

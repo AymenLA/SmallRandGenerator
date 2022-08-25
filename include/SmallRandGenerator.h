@@ -10,6 +10,7 @@ void Init_RandomGen(uint32_t seed);
 
 uint32_t Get_RandomNumber(void);
 
+uint32_t Get_RandomNumberFromRange(uint32_t lower, uint32_t upper);
 
 #ifdef	__cplusplus
 }

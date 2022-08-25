@@ -5,6 +5,7 @@
 
 void RunTestCase1(void)
 {
+    /* start with 0 as seed */
     uint32_t testSeed = 0U;
     uint32_t randomValue = 0U;
     Init_RandomGen(testSeed);
@@ -13,6 +14,7 @@ void RunTestCase1(void)
     printf("test seed value = %u\n", testSeed);
     randomValue = Get_RandomNumber();
     printf("first Random value = %u\n", randomValue);
+    /* the first generated number should be different from 0 */
     if(testSeed == randomValue)
     {
         printf("FAILED !!! first Random value is equal to seed value\n"); 
@@ -38,6 +40,7 @@ void RunTestCase1(void)
 
 void RunTestCase2(void)
 {
+    /* start with MAX_UIN32_T as seed */
     uint32_t testSeed = 0xFFFFFFFF;
     uint32_t randomValue = 0U;
 
@@ -72,6 +75,7 @@ void RunTestCase2(void)
 
 void RunTestCase3(void)
 {
+    /* start with a random seed */
     uint32_t testSeed = 0xAB12CD34;
     uint32_t randomValue = 0U;
     
@@ -106,6 +110,7 @@ void RunTestCase3(void)
 
 void RunTestCase4(void)
 {
+    /* start with a random seed */
     uint32_t testSeed = 0x87526589;
     uint32_t randomValue = 0U;
     
@@ -113,6 +118,7 @@ void RunTestCase4(void)
 
     printf("----------- RunTestCase4 : BEGIN -----------\n");
     printf("test seed value = %u\n", testSeed);
+    /* print all 255 first values from the generator */
     for(uint8_t count = 0U; count < 254; count++)
     {
         randomValue = Get_RandomNumber();
@@ -138,4 +144,56 @@ void RunTestCase5(void)
     }
 
     printf("----------- RunTestCase5 : END -----------\n");
+}
+
+void RunTestCase6(void)
+{
+    uint32_t testSeed = 0xac25be88;
+    uint32_t randomValue = 0U;
+    uint32_t upper = 21U;
+    uint32_t lower = 15U;
+    
+    Init_RandomGen(testSeed);
+
+    printf("----------- RunTestCase6 : BEGIN -----------\n");
+    printf("test seed value = %u\n", testSeed);
+    printf("Range = %u - %u\n", lower, upper);
+    for(uint8_t count = 0U; count < 254; count++)
+    {
+        randomValue = Get_RandomNumberFromRange(lower, upper);
+        printf(" Random value = %u\n", randomValue);
+        if((randomValue < lower) || (randomValue > upper))
+        {
+            printf("FAILED !!! value out of range\n"); 
+        }
+
+    }
+
+    printf("----------- RunTestCase6 : END -----------\n");
+}
+
+void RunTestCase7(void)
+{
+    uint32_t testSeed = 0xac25be88;
+    uint32_t randomValue = 0U;
+    uint32_t upper = 3U;
+    uint32_t lower = 0U;
+    
+    Init_RandomGen(testSeed);
+
+    printf("----------- RunTestCase7 : BEGIN -----------\n");
+    printf("test seed value = %u\n", testSeed);
+    printf("Range = %u - %u\n", lower, upper);
+    for(uint8_t count = 0U; count < 254; count++)
+    {
+        randomValue = Get_RandomNumberFromRange(lower, upper);
+        printf(" Random value = %u\n", randomValue);
+        if((randomValue < lower) || (randomValue > upper))
+        {
+            printf("FAILED !!! value out of range\n"); 
+        }
+
+    }
+
+    printf("----------- RunTestCase7 : END -----------\n");
 }
