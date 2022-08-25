@@ -140,7 +140,7 @@ void RunTestCase5(void)
     for(uint8_t count = 0U; count < 254; count++)
     {
         randomValue = Get_RandomNumber();
-        printf(" Random value = %u\n", randomValue % 17U);
+        printf(" Random value = %u\n", randomValue % 16U);
     }
 
     printf("----------- RunTestCase5 : END -----------\n");

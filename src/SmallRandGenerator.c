@@ -37,7 +37,6 @@ uint32_t Get_RandomNumberFromRange(uint32_t lower, uint32_t upper)
 {
     uint32_t randomToReturn = digestedSeed;
     uint32_t finalRandomToReturn = digestedSeed;
-    uint32_t range = 0U;
 
     /* not allowed cases */
     if((upper == 0U) || (upper == lower) || (upper < lower))
@@ -47,13 +46,16 @@ uint32_t Get_RandomNumberFromRange(uint32_t lower, uint32_t upper)
 
     if(finalRandomToReturn != 0U)
     {
-        range = (upper - lower) + 1U;
+        /* first thing, update the digested seed, needed for futur calls */
         digestedSeed = GetNextSeed(digestedSeed);
+        /* upper range should be included, add + 1*/
+        /* methode 1 : get the rest of integer devision by the high limit */
         finalRandomToReturn = (randomToReturn % (upper + 1U));
+        /* if the result is lower than the low limit, try method 2*/
         if(finalRandomToReturn < lower)
         {
             //printf("#srglib print : %u\n", finalRandomToReturn);
-            finalRandomToReturn = lower + (finalRandomToReturn % range);
+            finalRandomToReturn = lower + (finalRandomToReturn % ((upper - lower) + 1U));
         }
     }
 
@@ -68,28 +70,29 @@ static uint32_t GetNextSeed(uint32_t currentSeed)
     uint32_t seedToReturn = digestedSeed;
     for(uint8_t countSeedBytes = 0U; countSeedBytes < 4U; countSeedBytes++) 
     {
+        /* save seed bytes in a table of size 4 */
         seedBytes[countSeedBytes] = (currentSeed >> (countSeedBytes * 8U)) & 0xFF;
         if(seedBytes[countSeedBytes] == 0U)
         {
             seedBytes[countSeedBytes] = ((countSeedBytes * (13U)) * 7U) & 0xFF;
         }
 
+        /* this is needed in order to always read bytes from the tabe of size 4 */
         nextHalfBytePosition = countSeedBytes + 1U;
         if(nextHalfBytePosition == 4U)
         {
             nextHalfBytePosition = 0U;
         }
+        /* just some bytes operation ... */
         seedToReturn += (seedToReturn >> (countSeedBytes * 8U)) + 
                         ( 
                             ((seedBytes[countSeedBytes] & 0x0F) - (seedBytes[nextHalfBytePosition] & 0x0F)) * 
-                            (((seedBytes[countSeedBytes] & 0xF0) >> 4)+ ((seedBytes[nextHalfBytePosition] & 0xF0) >> 4))
+                            (((seedBytes[countSeedBytes] & 0xF0) >> 4) + ((seedBytes[nextHalfBytePosition] & 0xF0) >> 4))
                         ) << (countSeedBytes * 8U);
     }
 
-    uint32_t sumSeedToReturn = (seedToReturn >> 24U) & 0xFF + 
-                               (seedToReturn >> 16U) & 0xFF + 
-                               (seedToReturn >> 8U) & 0xFF + 
-                               (seedToReturn ) & 0xFF;
+    /* return the calculated seed value + the rest of integer devision by 3 
+       (smallest odd number different than 1) */
     return (seedToReturn + (seedToReturn % 3U));
 }
 
