@@ -40,3 +40,14 @@ I've written few tests to see how the srng works and generates random numbers in
 
 **7- initial seed is any uint32_t number, print all 255 first random generated numbers in range 0 to 3**
 
+## future evolutions
+
+**1- remove all constants from source code**
+
+**2- add a configuration file**
+
+**3- analyse the enthropy of the rng for various scenarios**
+
+**4- find a limit to the random generation**
+
+**5- use this lib with embedded devices (PIC18F)**

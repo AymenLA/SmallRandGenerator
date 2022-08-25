@@ -122,10 +122,10 @@ void RunTestCase4(void)
     for(uint8_t count = 0U; count < 254; count++)
     {
         randomValue = Get_RandomNumber();
-        printf(" Random value = %u\n", randomValue);
+        printf("%u; ", randomValue);
     }
 
-    printf("----------- RunTestCase4 : END -----------\n");
+    printf("\n----------- RunTestCase4 : END -----------\n");
 }
 
 void RunTestCase5(void)
@@ -140,10 +140,10 @@ void RunTestCase5(void)
     for(uint8_t count = 0U; count < 254; count++)
     {
         randomValue = Get_RandomNumber();
-        printf(" Random value = %u\n", randomValue % 16U);
+        printf("%u; ", randomValue % 16U);
     }
 
-    printf("----------- RunTestCase5 : END -----------\n");
+    printf("\n----------- RunTestCase5 : END -----------\n");
 }
 
 void RunTestCase6(void)
@@ -161,15 +161,15 @@ void RunTestCase6(void)
     for(uint8_t count = 0U; count < 254; count++)
     {
         randomValue = Get_RandomNumberFromRange(lower, upper);
-        printf(" Random value = %u\n", randomValue);
+        printf("%u; ", randomValue);
         if((randomValue < lower) || (randomValue > upper))
         {
-            printf("FAILED !!! value out of range\n"); 
+            printf("\nFAILED !!! value out of range\n"); 
         }
 
     }
 
-    printf("----------- RunTestCase6 : END -----------\n");
+    printf("\n----------- RunTestCase6 : END -----------\n");
 }
 
 void RunTestCase7(void)
@@ -187,13 +187,13 @@ void RunTestCase7(void)
     for(uint8_t count = 0U; count < 254; count++)
     {
         randomValue = Get_RandomNumberFromRange(lower, upper);
-        printf(" Random value = %u\n", randomValue);
+        printf("%u; ", randomValue);
         if((randomValue < lower) || (randomValue > upper))
         {
-            printf("FAILED !!! value out of range\n"); 
+            printf("\nFAILED !!! value out of range\n"); 
         }
 
     }
 
-    printf("----------- RunTestCase7 : END -----------\n");
+    printf("\n----------- RunTestCase7 : END -----------\n");
 }

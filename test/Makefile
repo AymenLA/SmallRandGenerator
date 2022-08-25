@@ -16,13 +16,13 @@ CC=gcc
 BINUTILS=ar
 COPY=cp
 REMOVE=rm
-EXEC=testlibsrg
+EXEC=testlibsrng
 
 CFLAGS=-I$(IDIR)
 SFLAGS=
 
 ODIR=./obj
-LIBS=-lsrg
+LIBS=-lsrng
 
 SRCS =  $(OBJ:.o=.c)
 SRCDIRS = .
@@ -44,12 +44,12 @@ $(EXEC): $(OBJ)
 
 .PHONY: clean
 
-libsrg:
+libsrng:
 	$(CC) -I../include/ -c ../src/SmallRandGenerator.c -o $(ODIR)/SmallRandGenerator.o
-	$(BINUTILS) -rcs libsrg.a $(ODIR)/SmallRandGenerator.o
+	$(BINUTILS) -rcs libsrng.a $(ODIR)/SmallRandGenerator.o
 	$(COPY) ../include/SmallRandGenerator.h .
 
 clean:
 	$(REMOVE) -f $(ODIR)/*.o
-	$(REMOVE) libsrg.a SmallRandGenerator.h
+	$(REMOVE) libsrng.a SmallRandGenerator.h
 	$(REMOVE) $(EXEC)
