@@ -23,12 +23,20 @@ make libsrng
 make
 ./testlibsrng
 ```
+## test cases description
 I've written few tests to see how the srng works and generates random numbers in some senarios :
-**1- initial seed is 0, print first 3 generated numbers
-**2- initial seed is 0xFFFFFFFF, print first 3 generated numbers
-**3- initial seed is any uint32_t number, print first 3 generated numbers
-**4- initial seed is any uint32_t number, print all 255 first random generated numbers 
-**5- initial seed is any uint32_t number, print all 255 first random the rest of integer devision by 16
-**6- initial seed is any uint32_t number, print all 255 first random generated numbers in range 15 to 21
-**7- initial seed is any uint32_t number, print all 255 first random generated numbers in range 0 to 3
+
+**1- initial seed is 0, print first 3 generated numbers**
+
+**2- initial seed is 0xFFFFFFFF, print first 3 generated numbers**
+
+**3- initial seed is any uint32_t number, print first 3 generated numbers**
+
+**4- initial seed is any uint32_t number, print all 255 first random generated numbers**
+
+**5- initial seed is any uint32_t number, print all 255 first random the rest of integer devision by 16**
+
+**6- initial seed is any uint32_t number, print all 255 first random generated numbers in range 15 to 21**
+
+**7- initial seed is any uint32_t number, print all 255 first random generated numbers in range 0 to 3**
 
