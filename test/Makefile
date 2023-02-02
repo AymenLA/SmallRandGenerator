@@ -15,6 +15,7 @@ IDIR=.
 CC=gcc
 BINUTILS=ar
 COPY=cp
+MD=mkdir
 REMOVE=rm
 EXEC=testlibsrng
 
@@ -45,11 +46,13 @@ $(EXEC): $(OBJ)
 .PHONY: clean
 
 libsrng:
+	$(MD) $(ODIR)
 	$(CC) -I../include/ -c ../src/SmallRandGenerator.c -o $(ODIR)/SmallRandGenerator.o
 	$(BINUTILS) -rcs libsrng.a $(ODIR)/SmallRandGenerator.o
 	$(COPY) ../include/SmallRandGenerator.h .
 
 clean:
-	$(REMOVE) -f $(ODIR)/*.o
+	$(REMOVE) -rf $(ODIR)/*.o
+	$(REMOVE) -rf $(ODIR)
 	$(REMOVE) libsrng.a SmallRandGenerator.h
 	$(REMOVE) $(EXEC)
