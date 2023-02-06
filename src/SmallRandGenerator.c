@@ -2,25 +2,25 @@
 #include <stdio.h>
 #include "SmallRandGenerator.h"
 
-/** Local defines          ***************************************************/
+//** Local defines          ***************************************************/
 
-/** Privat functions prototypes  *********************************************/
+//** Privat functions prototypes  *********************************************/
 static uint32_t GetNextSeed(uint32_t currentSeed);
 
-/** Local variables        ***************************************************/
+//** Local variables        ***************************************************/
 static uint32_t digestedSeed = 0U;
 
-/** Local enumerations     ***************************************************/
+//** Local enumerations     ***************************************************/
 
-/** Local types            ***************************************************/
+//** Local types            ***************************************************/
 
-/** Function definitions   ***************************************************/
+//** Function definitions   ***************************************************/
 
-/*****************************************************************************/
-/* the idea is to read the seed value, get four bytes out of it, apply those 
-/* bytes to a math equation and use the resulting value as next seed
-/* 
-/*****************************************************************************/
+//*****************************************************************************/
+//* the idea is to read the seed value, get four bytes out of it, apply those 
+//* bytes to a math equation and use the resulting value as next seed
+//* 
+//*****************************************************************************/
 void Init_RandomGen(uint32_t seed)
 {
     digestedSeed = GetNextSeed(seed);
@@ -68,7 +68,7 @@ static uint32_t GetNextSeed(uint32_t currentSeed)
     uint8_t countSeedBytes = 0U;
     uint8_t nextHalfBytePosition = 0U;
     uint32_t seedToReturn = digestedSeed;
-    for(uint8_t countSeedBytes = 0U; countSeedBytes < 4U; countSeedBytes++) 
+    for(countSeedBytes = 0U; countSeedBytes < 4U; countSeedBytes++) 
     {
         /* save seed bytes in a table of size 4 */
         seedBytes[countSeedBytes] = (currentSeed >> (countSeedBytes * 8U)) & 0xFF;
@@ -85,10 +85,10 @@ static uint32_t GetNextSeed(uint32_t currentSeed)
         }
         /* just some bytes operation ... */
         seedToReturn += (seedToReturn >> (countSeedBytes * 8U)) + 
-                        ( 
+                        (( 
                             ((seedBytes[countSeedBytes] & 0x0F) - (seedBytes[nextHalfBytePosition] & 0x0F)) * 
                             (((seedBytes[countSeedBytes] & 0xF0) >> 4) + ((seedBytes[nextHalfBytePosition] & 0xF0) >> 4))
-                        ) << (countSeedBytes * 8U);
+                        ) << (countSeedBytes * 8U));
     }
 
     /* return the calculated seed value + the rest of integer devision by 3 
@@ -96,4 +96,4 @@ static uint32_t GetNextSeed(uint32_t currentSeed)
     return (seedToReturn + (seedToReturn % 3U));
 }
 
-/** End of file            ***************************************************/
+//** End of file            ***************************************************/
