@@ -5,6 +5,26 @@ A simple and small random number generator
 
 This small code repo aims to create a Random Number Generator based on initial seed value and some bytes operations, no extra expensive math or dependencies to system clock or systicks. The inconvinient of this srng is that it returns always the same values if it is given the same initial conditions (initial seed) but this is a small rng and it is not made to be used for cyphering or salting digests, this is made for a home project where I needed random numbers generated from a library.
 
+## Building libsrng as a stand alone :
+
+It is possible to build only the libsrng.a without an application to test it, however for the moment, make install is not working properly : it only copy libsrng.a to the lib directory and does not create an include directory and puts on it the lib header. this needs to be addressed.
+
+## For native mqchine :
+
+```
+cmake ../ -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_INSTALL_PREFIX=../
+make
+make install
+```
+
+### For cortex-m0plus :
+
+```
+cmake ../ -DCMAKE_TOOLCHAIN_FILE="arm-gcc-cortex-m0plus.cmake" -DCMAKE_BUILD_TYPE="Debug" -DCMAKE_INSTALL_PREFIX=../
+make
+make install
+```
+
 ## Usage and testing
 
 The source code offers 3 public APIs : 
